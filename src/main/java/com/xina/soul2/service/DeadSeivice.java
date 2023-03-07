@@ -1,6 +1,7 @@
 package com.xina.soul2.service;
 
 import com.xina.soul2.entity.Dead;
+import com.xina.soul2.entity.DeadPager;
 import com.xina.soul2.mapper.DeadMapper;
 import org.springframework.stereotype.Service;
 
@@ -56,10 +57,13 @@ public class DeadSeivice {
         }
     }
 
-    public List<Dead> selectByKeyword(String keyword){
+    public DeadPager selectByKeyword(String keyword, int pageIndex, int pageSize){
         String finalKey = "%"+keyword+"%";
-        List<Dead> deads = deadMapper.selectByKeyword(finalKey);
-        return deads;
+        int i = (pageIndex - 1) * pageSize;
+        List<Dead> deads = deadMapper.selectByKeyword(finalKey, i, pageSize);
+        int count = deadMapper.getCount(finalKey);
+        DeadPager deadPager = new DeadPager(deads, count);
+        return deadPager;
     }
 
 }

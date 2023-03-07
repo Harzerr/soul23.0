@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class Soul2Application {
 
-	//后台接口启动
+	// 后台接口启动
 	public static void main(String[] args) {
 		SpringApplication.run(Soul2Application.class, args);
 	}

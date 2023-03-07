@@ -9,8 +9,11 @@ import java.util.List;
 @Mapper
 public interface DeadMapper extends BaseMapper<Dead> {
 
-    @Select("select * from dead where dname like #{keyword} or dsex like #{keyword} or ddescribe like #{keyword} or daddress like #{keyword}")
-    List<Dead> selectByKeyword(@Param("keyword") String keyword);
+    @Select("select * from dead where dname like #{keyword} or dsex like #{keyword} or ddescribe like #{keyword} or daddress like #{keyword} limit #{i}, #{pageSize}")
+    List<Dead> selectByKeyword(@Param("keyword") String keyword, @Param("i") int i, @Param("pageSize") int pageSize);
+
+    @Select("select count(*) from dead where dname like #{keyword} or dsex like #{keyword} or ddescribe like #{keyword} or daddress like #{keyword}")
+    int getCount(@Param("keyword") String keyword);
 
     @Update("update dead set dname = #{dname}, dsex = #{dsex} where id = #{id}")
     int updateDead(@Param("dname") String dname, @Param("dsex") String dsex, @Param("id") Integer id);

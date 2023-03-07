@@ -1,6 +1,7 @@
 package com.xina.soul2.controller;
 
 import com.xina.soul2.entity.Dead;
+import com.xina.soul2.entity.DeadPager;
 import com.xina.soul2.entity.SoulPager;
 import com.xina.soul2.entity.User;
 import com.xina.soul2.service.DeadSeivice;
@@ -61,9 +62,11 @@ public class DeadController {
     }
 
     @GetMapping("/search")
-    public List<Dead> search(HttpServletRequest httpServletRequest){
+    public DeadPager search(HttpServletRequest httpServletRequest){
         String keyword = httpServletRequest.getParameter("keyword");
-        return deadSeivice.selectByKeyword(keyword);
+        String pageSize = httpServletRequest.getParameter("pageSize");
+        String pageIndex = httpServletRequest.getParameter("pageIndex");
+        return deadSeivice.selectByKeyword(keyword, Integer.parseInt(pageIndex), Integer.parseInt(pageSize));
     }
 
 }
